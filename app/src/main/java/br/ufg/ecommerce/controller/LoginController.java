@@ -17,7 +17,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ufg.br.hellopos.entity.UserReturn;
 
 public class LoginController implements Callback<UserReturn> {
 
@@ -57,7 +56,7 @@ public class LoginController implements Callback<UserReturn> {
             Gson gson = new Gson();
             String json = gson.toJson(user);
             Intent second = new Intent(context,CatalogActivity.class);
-            second.putExtra(MainActivity.USERRETURN, json);
+            // second.putExtra(MainActivity.USERRETURN, json);
             context.startActivity(second);
         } else {
             System.out.println(response.errorBody());

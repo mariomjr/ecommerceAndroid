@@ -8,4 +8,10 @@
     tools:context=".CatalogActivity"
     tools:showIn="@layout/activity_catalog">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_products_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/catalog_item_view"/>
+
 </android.support.constraint.ConstraintLayout>

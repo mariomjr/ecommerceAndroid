@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "154741432443",
+    "firebase_url": "https://androidavancado-d474b.firebaseio.com",
+    "project_id": "androidavancado-d474b",
+    "storage_bucket": "androidavancado-d474b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154741432443:android:ad1805a5bf768053",
+        "android_client_info": {
+          "package_name": "br.ufg.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154741432443-8djatm7p2nse6mjnn1pt15habitg1inf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgNvisTiCN7GMVKXMWU-jsumkyDYMJ9gE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
