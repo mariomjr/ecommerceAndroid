@@ -1,13 +1,24 @@
 package br.ufg.ecommerce;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
@@ -15,7 +26,10 @@ import br.ufg.ecommerce.adapter.CatalogItemAdapter;
 import br.ufg.ecommerce.entity.Product;
 
 public class CatalogActivity extends AppCompatActivity {
-    private ArrayList<Product> products;
+    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference productsRef = mRootRef.child("products");
+
+    private ArrayList<Product> mProducts;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -32,35 +46,39 @@ public class CatalogActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), AddProductActivity.class);
+                startActivity(intent);
             }
         });
 
-        this.products = getProducts();
+        mProducts = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.rv_products_items);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new CatalogItemAdapter(this, this.products);
+        mAdapter = new CatalogItemAdapter(this, this.mProducts);
         recyclerView.setAdapter(mAdapter);
+        this.getProducts();
 
     }
 
-    private ArrayList<Product> getProducts() {
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(new Product("Produto 1", 122.5, "Descrição 1"));
-        products.add(new Product("Produto 2", 22.5, "Descrição 2"));
-        products.add(new Product("Produto 3", 182.7, "Descrição 3"));
-        products.add(new Product("Produto 4", 12.5, "Descrição 4"));
-        products.add(new Product("Produto 5", 52.0, "Descrição 5"));
-        products.add(new Product("Produto 6", 12.5, "Descrição 4"));
-        products.add(new Product("Produto 7", 12.5, "Descrição 4"));
-        products.add(new Product("Produto 8", 12.5, "Descrição 4"));
-        products.add(new Product("Produto 9", 12.5, "Descrição 4"));
+    private void getProducts() {
+        productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot productSnapshot: dataSnapshot.getChildren()) {
+                    Product product = productSnapshot.getValue(Product.class);
+                    System.out.print(productSnapshot.getValue());
+                    mProducts.add(product);
+                }
+                mAdapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        return products;
+            }
+        });
     }
 
 }
