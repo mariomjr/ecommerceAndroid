@@ -68,7 +68,6 @@ public class CatalogActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()) {
                     Product product = productSnapshot.getValue(Product.class);
-                    System.out.print(productSnapshot.getValue());
                     mProducts.add(product);
                 }
                 mAdapter.notifyDataSetChanged();

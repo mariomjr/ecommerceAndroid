@@ -36,20 +36,21 @@ public class AddProductActivity extends AppCompatActivity {
 
     public void saveProduct(View v) {
         String key = productsRef.push().getKey();
-        Product product = this.createProduct();
+        Product product = this.createProduct(key);
         productsRef.child(key).setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(), "Teste", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show();
+                clearFields();
             }
         });
     }
 
-    private Product createProduct() {
+    private Product createProduct(String id) {
         String name = etName.getText().toString();
         String desc = etDescription.getText().toString();
         Double value = Double.valueOf(etValue.getText().toString());
-        return new Product(name, value, desc);
+        return new Product(name, value, desc, id);
     }
 
     private void clearFields() {
