@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import br.ufg.ecommerce.ProductDetailsActivity;
@@ -56,8 +58,11 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "click: " + product.getName(), Toast.LENGTH_LONG).show();
+                Gson gson = new Gson();
+                String jsonProduct = gson.toJson(product);
+
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
-                intent.putExtra("productId", product.getId());
+                intent.putExtra("jsonProduct", jsonProduct);
                 context.startActivity(intent);
             }
         });
